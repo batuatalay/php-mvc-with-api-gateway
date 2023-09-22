@@ -2,7 +2,6 @@
 
 $allEndPoints = [
 	"GET" => [
-		//Main
 		'/main',
 	],
 	"POST" => [

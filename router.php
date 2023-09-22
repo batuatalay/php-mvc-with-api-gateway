@@ -11,17 +11,6 @@
 			$this->endpoints = $allEndPoints;
 		}
 
-		public function run($method = "GET", $url, $callback, $parameters = null) {
-			if($method == $_SERVER["REQUEST_METHOD"]) {
-				$endpoints = $this->endpoints[$method];
-				foreach ($endpoints as $endpoint) {
-					if ($url === $endpoint) {
-						$this->$method($url, $callback, $parameters);
-					}
-				}
-			}
-		}
-
 		public function get($url, $callback, $parameters = null) {
 			if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$parameters = $this->getParamaters($url);

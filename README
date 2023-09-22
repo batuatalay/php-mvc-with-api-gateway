@@ -1,4 +1,10 @@
-please check and edit init.php before runing
+after the docker-compose up -d
+Have to run 
+a2enmod rewrite
+service apache2 restart
+in "web_app" container's terminal for enable .htaccess routing
+after these part you have to re-start web_app container
+docker start web_app
 
 ** Author **: Batuhan ATALAY
 

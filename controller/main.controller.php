@@ -14,8 +14,7 @@ spl_autoload_register( function($className) {
 class Main extends SimpleController{
 
 	public static function getMainPage() {
-		echo 'main Page' . PHP_EOL;
-		Test::testFunction1();
+		//Test::testFunction1();
 		self::view('main', 'main', '');
 	}
 
