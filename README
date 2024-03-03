@@ -1,10 +1,13 @@
-after the docker-compose up -d
-Have to run 
-a2enmod rewrite
-service apache2 restart
-in "web_app" container's terminal for enable .htaccess routing
-after these part you have to re-start web_app container
-docker start web_app
+docker-compose up -d
+
+
+When you run the following command, it brings up the containers and establishes the necessary connections:
+
+nginx
+php-fpm
+mysql
+phpmyadmin
+
 
 ** Author **: Batuhan ATALAY
 

@@ -1,4 +1,0 @@
-RewriteEngine On
-RewriteCond %{QUERY_STRING} fbclid=(.*)
-	RewriteRule ^.*$ http://localhost:8080 [QSD,L]
-RewriteRule ^([0-9a-zA-Z-_/]+)$ index.php [QSA]
