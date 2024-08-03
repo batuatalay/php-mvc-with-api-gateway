@@ -1,0 +1,22 @@
+docker-compose up -d
+
+
+
+when you run the above command, it brings up the containers and establishes the necessary connections:
+
+- apache
+- mysql
+- phpmyadmin
+
+You can change port number in docker-compose.yaml (Line:33) for multi-project
+
+Batuhan ATALAY
+
+V2@2024
+
+PHP MVC project with API GATEWAY
+## Author
+
+- [linkedIn](https://tr.linkedin.com/in/batuhan-atalay-652a6289)
+- [github](https://github.com/batuatalay)
+- [mail](batuatalay@hotmail.com)

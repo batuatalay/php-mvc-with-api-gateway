@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteCond %{QUERY_STRING} fbclid=(.*)
+	RewriteRule ^.*$ https://localhost:8080/ [QSD,L]
+RewriteCond %{REQUEST_URI} !^/assets/uploads/
+RewriteRule ^([0-9a-zA-Z-_/]+)$ index.php [QSA]
