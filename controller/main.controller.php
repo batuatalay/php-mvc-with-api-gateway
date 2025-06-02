@@ -15,12 +15,15 @@ spl_autoload_register( function($className) {
 class Main extends SimpleController{
 
     public function __construct($arr = []) {
-        if(!Login::loginCheck() && 1!=1) { // 1==1 for bypass login
-            header("Location: /login");
-        }
+        // if(!Login::loginCheck() && 1!=1) { // 1==1 for bypass login
+        //     header("Location: /login");
+        // }
     }
 
     public static function getMainPage() {
         echo 'Main Page';exit;
+    }
+        public static function getDashboard() {
+        echo 'Dashboard Page';exit;
     }
 }
