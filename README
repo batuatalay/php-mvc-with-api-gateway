@@ -1,22 +1,143 @@
+# Naked MVC Framework
+
+A lightweight PHP MVC framework with attribute-based routing and middleware system.
+
+## Quick Start with Docker
+
+Run the following command to start the development environment:
+```bash
 docker-compose up -d
+```
 
+This command brings up the following containers:
+- Apache (PHP 8.0+)
+- MySQL
+- phpMyAdmin
 
+Note: You can change port numbers in docker-compose.yaml (Line:33) for multi-project setup.
 
-when you run the above command, it brings up the containers and establishes the necessary connections:
+## Features
 
-- apache
-- mysql
-- phpmyadmin
+### 1. Routing System
+- Attribute-based routing with `#[Prefix]` support
+- Support for GET and POST methods
+- Parameter handling in URLs
+- Clean and SEO-friendly URLs
 
-You can change port number in docker-compose.yaml (Line:33) for multi-project
+### 2. Middleware System
+- Attribute-based middleware implementation
+- Built-in middlewares:
+  - `#[LoginAttribute]`: Handles user authentication
+  - `#[AdminAttribute]`: Handles admin-level access control
+  - `#[Auth]`: Role-based access control
+  - Cache middleware for performance optimization
 
-Batuhan ATALAY
+### 3. Session Management
+- Secure session handling
+- User role management (admin/user)
+- Permission-based access control
+- Built-in session helper methods
 
-V2@2024
+## Project Structure
+```
+nakedMVC/
+├── assets/           # Static assets (CSS, JS, images)
+├── controller/       # Controller classes
+├── helper/          # Helper classes
+├── middleware/      # Middleware implementations
+├── model/          # Data models
+├── router/         # Router implementations
+└── view/           # View templates
+```
 
-PHP MVC project with API GATEWAY
+## Usage Examples
+
+### 1. Creating a Controller
+```php
+#[Prefix('main')]
+class Main extends SimpleController {
+    #[LoginAttribute]
+    public static function getMainPage() {
+        echo 'Main Page';
+    }
+
+    #[AdminAttribute]
+    public static function getDashboard() {
+        echo 'Dashboard Page';
+    }
+}
+```
+
+### 2. Session Management
+```php
+// Create user session
+SessionHelper::createUserSession([
+    'id' => 1,
+    'name' => 'User Name',
+    'user_role' => 'admin',
+    'permissions' => ['read', 'write']
+]);
+
+// Check user role
+if (SessionHelper::isAdmin()) {
+    // Admin specific operations
+}
+
+// Change user role
+SessionHelper::changeUser();
+```
+
+### 3. Middleware Usage
+```php
+// Require login
+#[LoginAttribute]
+public function secureEndpoint() {}
+
+// Require admin access
+#[AdminAttribute]
+public function adminEndpoint() {}
+
+// Role-based access
+#[Auth(role: 'user')]
+public function userEndpoint() {}
+```
+
+## Security Features
+- Session-based authentication
+- Role-based access control
+- Secure routing
+- XSS protection
+- CSRF protection (via session tokens)
+
+## Requirements
+- PHP 8.0 or higher
+- Apache web server with mod_rewrite enabled
+- MySQL/MariaDB database
+- Docker and Docker Compose (for containerized setup)
+
+## Installation
+1. Clone the repository
+2. Run `docker-compose up -d` to start the containers
+3. Configure your environment settings in `init.php`
+4. Set up the database connection in the model files
+5. Ensure proper permissions for cache and upload directories
+
+## Configuration
+- Environment settings in `init.php`
+- Database configuration in model files
+- Apache configuration in `.htaccess`
+- Docker configuration in `docker-compose.yaml`
+
+## Version
+V3@2025
+
 ## Author
+- [LinkedIn](https://tr.linkedin.com/in/batuhan-atalay-652a6289)
+- [GitHub](https://github.com/batuatalay)
+- [Email](batuatalay@hotmail.com)
 
-- [linkedIn](https://tr.linkedin.com/in/batuhan-atalay-652a6289)
-- [github](https://github.com/batuatalay)
-- [mail](batuatalay@hotmail.com)
+## License
+This project is licensed under the MIT License.
+
+---
+Developed by Batuhan ATALAY

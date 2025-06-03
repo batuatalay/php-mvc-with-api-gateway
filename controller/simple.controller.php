@@ -1,5 +1,5 @@
 <?php
-
+require_once BASE . "/middleware/common.middleware.php";
 /**
  * 
  */

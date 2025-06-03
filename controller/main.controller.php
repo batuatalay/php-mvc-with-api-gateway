@@ -1,4 +1,6 @@
 <?php 
+require_once BASE . "/middleware/common.middleware.php";
+
 spl_autoload_register( function($className) {
     if($className == "SimpleController") {
         $fullPath = "simple.controller.php";
@@ -8,22 +10,19 @@ spl_autoload_register( function($className) {
     }
     require_once $fullPath;
 });
-/**
- * for API usege only you can add only echo
- * 
- */
-class Main extends SimpleController{
 
-    public function __construct($arr = []) {
-        // if(!Login::loginCheck() && 1!=1) { // 1==1 for bypass login
-        //     header("Location: /login");
-        // }
-    }
-
+class Main extends SimpleController {
+    #[LoginAttribute]
+    
     public static function getMainPage() {
-        echo 'Main Page';exit;
+        echo 'Main Page<br>';
     }
-        public static function getDashboard() {
-        echo 'Dashboard Page';exit;
+
+    // This method will perform both Login and Auth checks
+    #[LoginAttribute]
+    #[AdminAttribute]
+    public static function getDashboard() {
+        echo 'Dashboard Page<br>';
+        exit;
     }
 }
