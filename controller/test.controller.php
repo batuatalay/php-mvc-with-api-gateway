@@ -1,16 +1,4 @@
 <?php 
-spl_autoload_register( function($className) {
-	if($className == "SimpleController") {
-		$fullPath = "simple.controller.php";
-	} else {
-		$extension = ".controller.php";
-		$fullPath = strtolower($className) . $extension;
-	}
-	require_once $fullPath;
-});
-/**
- * 
- */
 class Test extends SimpleController{
 
 	public static function testFunction1 () {

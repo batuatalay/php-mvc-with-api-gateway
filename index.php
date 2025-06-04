@@ -2,6 +2,16 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+spl_autoload_register( function($className) {
+    if($className == "SimpleController") {
+        $fullPath = "simple.controller.php";
+    } else {
+        $extension = ".controller.php";
+        $fullPath = strtolower($className) . $extension;
+    }
+    require_once $fullPath;
+});
+
 session_start();
 require_once "init.php";
 require_once "model/mysql.php";

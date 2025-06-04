@@ -1,16 +1,5 @@
 <?php 
-require_once BASE . "/middleware/common.middleware.php";
 require_once BASE . "/model/initialize.model.php";
-
-spl_autoload_register( function($className) {
-    if($className == "SimpleController") {
-        $fullPath = "simple.controller.php";
-    } else {
-        $extension = ".controller.php";
-        $fullPath = strtolower($className) . $extension;
-    }
-    require_once $fullPath;
-});
 
 class Initialize extends SimpleController {
     private static function createInitialUsers($model) {

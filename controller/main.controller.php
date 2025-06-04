@@ -2,16 +2,6 @@
 require_once BASE . "/middleware/common.middleware.php";
 require_once BASE . "/model/user.model.php";
 
-spl_autoload_register( function($className) {
-    if($className == "SimpleController") {
-        $fullPath = "simple.controller.php";
-    } else {
-        $extension = ".controller.php";
-        $fullPath = strtolower($className) . $extension;
-    }
-    require_once $fullPath;
-});
-
 class Main extends SimpleController {
     public static function getMainPage() {
         try {

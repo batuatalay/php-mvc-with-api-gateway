@@ -1,16 +1,6 @@
 <?php 
 require_once BASE . "/helper/session.helper.php";
 
-spl_autoload_register( function($className) {
-    if($className == "SimpleController") {
-        $fullPath = "simple.controller.php";
-    }else {
-        $extension = ".controller.php";
-        $fullPath = strtolower($className) . $extension;
-    }
-    require_once $fullPath;
-});
-
 #[Prefix('login')]
 class Login extends SimpleController{
 
