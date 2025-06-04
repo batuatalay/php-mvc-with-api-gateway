@@ -15,9 +15,7 @@ spl_autoload_register( function($className) {
 class Main extends SimpleController {
     public static function getMainPage() {
         try {
-            $model = new UserModel();
-            $users = $model->getAllUsers();
-            
+            $users = User::getAllUsers();
             echo '<!DOCTYPE html>
             <html>
             <head>
@@ -80,11 +78,11 @@ class Main extends SimpleController {
                         <tbody>';
             
             foreach ($users as $user) {
-                $roleClass = $user['role'] === 'admin' ? 'role-admin' : 'role-user';
+                $roleClass = $user->role === 'admin' ? 'role-admin' : 'role-user';
                 echo '<tr>
-                    <td>' . htmlspecialchars($user['username']) . '</td>
-                    <td>' . htmlspecialchars($user['email']) . '</td>
-                    <td class="' . $roleClass . '">' . htmlspecialchars($user['role']) . '</td>
+                    <td>' . htmlspecialchars($user->username) . '</td>
+                    <td>' . htmlspecialchars($user->email) . '</td>
+                    <td class="' . $roleClass . '">' . htmlspecialchars($user->role) . '</td>
                 </tr>';
             }
             
