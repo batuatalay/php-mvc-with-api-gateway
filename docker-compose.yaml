@@ -1,20 +1,27 @@
-version: '3.7'
 services:
   nakedDb:
-    image: mysql:latest
+    image: mysql:8.0
+    platform: linux/arm64/v8
     container_name: nakedDb
     environment:
       MYSQL_ROOT_PASSWORD: '1q2w3e4r'
-      MYSQL_DATABASE: 'tyr-db'
-      MYSQL_USER: 'ironman'
+      MYSQL_DATABASE: 'naked-db'
+      MYSQL_USER: 'naked'
       MYSQL_PASSWORD: '1q2w3e4r'
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - naked-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$$MYSQL_USER", "-p$$MYSQL_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   naked-phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: arm64v8/phpmyadmin:latest
     container_name: naked-phpmyadmin
     environment:
       PMA_HOST: nakedDb
@@ -22,7 +29,10 @@ services:
     ports:
       - "8090:80"
     depends_on:
-      - nakedDb
+      nakedDb:
+        condition: service_healthy
+    networks:
+      - naked-network
 
   naked-app:
     build: 
@@ -34,13 +44,16 @@ services:
     volumes:
       - .:/var/www/html
     depends_on:
-      - nakedDb
+      nakedDb:
+        condition: service_healthy
     environment:
       - MYSQL_HOST=nakedDb
       - MYSQL_PORT=3306
-      - MYSQL_DATABASE=web-app
-      - MYSQL_USER=ironman
+      - MYSQL_DATABASE=naked-db
+      - MYSQL_USER=naked
       - MYSQL_PASSWORD=1q2w3e4r
+    networks:
+      - naked-network
     command: >
       bash -c "apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo_mysql && apache2-foreground"
 

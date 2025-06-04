@@ -1,8 +1,14 @@
-
-FROM php:7.4-apache
+FROM php:8.2-apache
 
 RUN a2enmod rewrite
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
 
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
 WORKDIR /var/www/html
+
+# Enable error reporting for development
+RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-error-reporting.ini \
+    && echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-error-reporting.ini

@@ -3,9 +3,11 @@ require_once BASE . "/helper/session.helper.php";
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_CLASS)]
 class Auth {
-    public function __construct(
-        public readonly string $role = 'user'
-    ) {}
+    private string $role;
+
+    public function __construct(string $role = 'user') {
+        $this->role = $role;
+    }
 
     public function handle($next, $params) {
         if (SessionHelper::getUserRole() == $this->role) {
@@ -147,10 +149,10 @@ class CacheMiddleware implements MiddlewareInterface {
 
 class MiddlewareManager {
     private static $middlewares = [
-        'auth' => AuthMiddleware::class,
-        'cache' => CacheMiddleware::class,
-        'login' => LoginMiddleware::class,
-        'admin' => AdminMiddleware::class
+        'auth' => 'Auth',
+        'login' => 'LoginAttribute',
+        'admin' => 'AdminAttribute',
+        'cache' => CacheMiddleware::class
     ];
     
     public static function process($controllerName, $methodName, $context, $params) {

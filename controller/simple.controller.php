@@ -1,7 +1,7 @@
 <?php
 require_once BASE . "/middleware/common.middleware.php";
 /**
- * 
+ * Base Controller Class
  */
 class SimpleController
 {
@@ -42,5 +42,16 @@ class SimpleController
     }
     public static function returnData($response) {
         echo json_encode(['status' => $response['code'], 'message' => $response['message']]);
+    }
+
+    public static function redirect($url) {
+        header('Location: ' . $url);
+        exit;
+    }
+
+    public static function json($data) {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
     }
 }
